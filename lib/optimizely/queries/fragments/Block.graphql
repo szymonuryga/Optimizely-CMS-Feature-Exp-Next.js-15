@@ -63,6 +63,13 @@ fragment ProfileBlockFragment on ProfileBlock {
   bio
   name
   title
+  button_cta {
+    title
+    text
+    url {
+      default
+    }
+  }
 }
 
 fragment AvailabilityBlockFragment on AvailabilityBlock {

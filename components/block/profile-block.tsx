@@ -1,8 +1,10 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { ProfileBlock as ProfileBlockProps } from '@/lib/optimizely/types/generated'
 import { BlockBase } from '@/lib/optimizely/types/block'
 import { cva } from 'class-variance-authority'
+import { Button } from '../ui/button'
 
 type ProfileBlockPropsV2 = ProfileBlockProps & BlockBase
 
@@ -25,6 +27,7 @@ export default function ProfileBlock({
   title,
   bio,
   isFirst,
+  button_cta,
   displaySettings,
 }: ProfileBlockPropsV2) {
   const colorScheme =
@@ -35,15 +38,15 @@ export default function ProfileBlock({
     <section className="container mx-auto px-4 py-16">
       <Card
         className={backgroundVariants({
-          colorScheme: colorScheme as 'default' | 'primary' | 'secondary',
+          colorScheme: colorScheme as "default" | "primary" | "secondary",
         })}
       >
         <CardContent className="p-8">
           <div className="grid items-start gap-12 md:grid-cols-2">
             <div className="relative mx-auto aspect-square w-full max-w-md">
               <Image
-                src={imageSrc || '/placeholder.svg'}
-                alt={title ?? ''}
+                src={imageSrc || "/placeholder.svg"}
+                alt={title ?? ""}
                 fill
                 className="rounded-lg object-cover"
                 priority={isFirst}
@@ -62,6 +65,15 @@ export default function ProfileBlock({
                   {bio}
                 </p>
               </div>
+              {button_cta?.url?.default && (
+                <div className="mt-8">
+                  <Button size="lg" className="w-full md:w-auto" asChild>
+                    <Link href={button_cta?.url?.default}>
+                      {button_cta.text}
+                    </Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </CardContent>
