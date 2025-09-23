@@ -1,6 +1,7 @@
 query VisualBuilder($locales: [Locales], $key: String, $version: String) {
   SEOExperience(
     locale: $locales
+    variation: { include: ALL, includeOriginal: true }
     where: {
       _metadata: { key: { eq: $key } }
       _or: { _metadata: { version: { eq: $version } } }

@@ -1,6 +1,7 @@
 query GetPreviewStartPage($locales: [Locales], $version: String) {
   StartPage(
     locale: $locales
+    variation: { include: ALL, includeOriginal: true }
     where: { _metadata: { version: { eq: $version } } }
   ) {
     item {

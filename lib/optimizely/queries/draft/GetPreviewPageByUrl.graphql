@@ -5,6 +5,7 @@ query getPreviewPageByURL(
 ) {
   CMSPage(
     locale: $locales
+    variation: { include: ALL, includeOriginal: true }
     where: {
       _metadata: { version: { eq: $version } }
       _and: { _metadata: { url: { default: { eq: $slug } } } }
