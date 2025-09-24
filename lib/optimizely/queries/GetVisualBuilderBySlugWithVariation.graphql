@@ -8,7 +8,10 @@ query GetVisualBuilderBySlugWithVariation(
     locale: $locales
     where: { _metadata: { url: { default: { eq: $slug } } } }
   ) {
-    item {
+    items {
+      _metadata {
+        variation
+      }
       title
       shortDescription
       keywords

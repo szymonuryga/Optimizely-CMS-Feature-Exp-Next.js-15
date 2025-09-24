@@ -59,7 +59,7 @@ async function verifyOptimizelyWebhook(
       Buffer.from(hash, 'hex'),
       Buffer.from(digest, 'hex')
     )
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('Error verifying webhook:', error?.message)
     return false

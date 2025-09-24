@@ -10,33 +10,48 @@ interface TrackedButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
   trackingText?: string
-  colorScheme?: "default" | "primary" | "secondary" 
+  colorScheme?: 'default' | 'primary' | 'secondary'
 }
 
-const getVariantForColorScheme = (colorScheme?: string, currentVariant?: string) => {
+const getVariantForColorScheme = (
+  colorScheme?: string,
+  currentVariant?: string
+) => {
   // If variant is already specified, use it
-  if (currentVariant && currentVariant !== "default") {
+  if (currentVariant && currentVariant !== 'default') {
     return currentVariant
   }
 
   // Map colorScheme to appropriate variant for visibility
   switch (colorScheme) {
-    case "primary":
-      return "secondary" // Use secondary variant on primary background for contrast
-    case "secondary":
-      return "default" // Use default variant on secondary background
-    case "default":
+    case 'primary':
+      return 'secondary' // Use secondary variant on primary background for contrast
+    case 'secondary':
+      return 'default' // Use default variant on secondary background
+    case 'default':
     default:
-      return "outline" // Use outline variant on default pink background for better visibility
+      return 'outline' // Use outline variant on default pink background for better visibility
   }
 }
 
 const TrackedButton = React.forwardRef<HTMLButtonElement, TrackedButtonProps>(
-  ({ children, onClick, trackingText, colorScheme, variant, asChild = false, ...props }, ref) => {
-    const finalVariant = getVariantForColorScheme(colorScheme, variant as string) as VariantProps<
-      typeof buttonVariants
-    >["variant"]
-    
+  (
+    {
+      children,
+      onClick,
+      trackingText,
+      colorScheme,
+      variant,
+      asChild = false,
+      ...props
+    },
+    ref
+  ) => {
+    const finalVariant = getVariantForColorScheme(
+      colorScheme,
+      variant as string
+    ) as VariantProps<typeof buttonVariants>['variant']
+
     const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
       // Extract text content for tracking
       const buttonText =
@@ -58,13 +73,19 @@ const TrackedButton = React.forwardRef<HTMLButtonElement, TrackedButtonProps>(
 
       // Call the original onClick handler if provided
       if (onClick) {
-        onClick(event)   
+        onClick(event)
       }
     }
 
     if (asChild) {
       return (
-        <Button asChild ref={ref} onClick={handleClick} variant={finalVariant} {...props}>
+        <Button
+          asChild
+          ref={ref}
+          onClick={handleClick}
+          variant={finalVariant}
+          {...props}
+        >
           {children}
         </Button>
       )

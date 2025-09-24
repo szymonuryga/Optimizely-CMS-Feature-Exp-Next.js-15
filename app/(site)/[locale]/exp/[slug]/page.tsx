@@ -77,9 +77,13 @@ export default async function CmsPage(props: {
       }
     )
 
-    const experience = experienceData.data?.SEOExperience?.item as
-      | SafeVisualBuilderExperience
+    const experiences = experienceData.data?.SEOExperience?.items as
+      | SafeVisualBuilderExperience[]
       | undefined
+
+    const experience =
+      experiences?.find((exp) => exp._metadata?.variation === variationKey) ??
+      experiences?.[0]
 
     if (experience) {
       return (
